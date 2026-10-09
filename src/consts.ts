@@ -11,5 +11,6 @@ export const LEGAL_URL = `${APP_URL}/legal`;
 export const CONTACT_EMAIL = 'contact@yoyakuto.com';
 export const COMPANY_NAME = 'ヨヤクト合同会社';
 export const COPYRIGHT = `© 2026 ${COMPANY_NAME}`;
+export const DEFAULT_OG_IMAGE_PATH = '/og/index.png';
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;
