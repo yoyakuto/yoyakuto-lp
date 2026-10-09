@@ -32,14 +32,13 @@ const FAQS = [
   },
 ];
 ---
-<section class="faq" aria-labelledby="faq">
+<section class="faq">
   <div class="inner">
-    <SectionHeading id="faq" eyebrow="FAQ" title="よくある質問" />
+    <SectionHeading id="faq" time="14:00" eyebrow="FAQ" title="よくある質問" />
     <div class="items">
       {FAQS.map((faq) => (
         <details class="item">
           <summary>
-            <span class="mark" aria-hidden="true">Q.</span>
             <span class="question">{faq.question}</span>
             <span class="toggle" aria-hidden="true"></span>
           </summary>
@@ -52,61 +51,64 @@ const FAQS = [
 
 <style>
   .faq {
-    padding: 128px 32px;
-    background: var(--color-bg-alt);
-    border-top: 1px solid var(--color-border);
+    padding: 112px 32px;
   }
   .inner {
-    max-width: 800px;
+    max-width: var(--content-width);
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
+    align-items: start;
+    gap: 48px;
   }
   .items {
-    margin-top: 64px;
-    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
   .item {
-    border-bottom: 1px solid var(--color-border);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+  .item[open] {
+    border-color: var(--color-free);
   }
   summary {
-    display: grid;
-    grid-template-columns: 28px minmax(0, 1fr) 16px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    padding: 26px 8px;
+    gap: 16px;
+    padding: 18px 20px;
     cursor: pointer;
     list-style: none;
   }
   summary::-webkit-details-marker {
     display: none;
   }
-  .mark {
-    font-family: var(--font-en);
-    font-style: italic;
-    font-size: 19px;
-    color: var(--color-accent-text);
-  }
   .question {
-    font-family: var(--font-mincho);
     font-weight: 500;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.7;
-    letter-spacing: 0.06em;
   }
   .toggle {
     position: relative;
-    width: 14px;
-    height: 14px;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-free-soft);
   }
   .toggle::before,
   .toggle::after {
     content: '';
     position: absolute;
-    left: 0;
-    top: 50%;
-    width: 14px;
-    height: 1px;
-    background: var(--color-text-sub);
-    transition: transform 0.3s ease;
+    left: 7px;
+    top: 11.5px;
+    width: 10px;
+    height: 1.5px;
+    background: var(--color-free);
+    transition: transform 0.2s ease;
   }
   .toggle::after {
     transform: rotate(90deg);
@@ -116,23 +118,29 @@ const FAQS = [
   }
   .answer {
     margin: 0;
-    padding: 0 8px 28px 48px;
+    padding: 0 20px 20px;
     font-size: 14px;
-    line-height: 2.05;
+    line-height: 1.95;
     color: var(--color-text-sub);
+  }
+  @media (max-width: 960px) {
+    .inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 36px;
+    }
   }
   @media (max-width: 760px) {
     .faq {
-      padding: 96px 16px;
+      padding: 88px 16px;
     }
-    .items {
-      margin-top: 48px;
-    }
-    .question {
-      font-size: 15px;
+    summary {
+      padding: 16px;
     }
     .answer {
-      padding-left: 8px;
+      padding: 0 16px 18px;
+    }
+    .question {
+      font-size: 14px;
     }
   }
 </style>

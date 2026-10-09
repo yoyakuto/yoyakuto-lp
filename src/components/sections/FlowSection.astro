@@ -15,12 +15,12 @@ const STEPS = [
     body: '公開すると予約ページの URL が発行されます。メールやサイトに載せれば、相手は空き枠を選んで予約できます。',
   },
 ];
-const NUMBER_WIDTH = 2;
 ---
-<section class="flow" aria-labelledby="flow">
+<section class="flow">
   <div class="inner">
     <SectionHeading
       id="flow"
+      time="11:00"
       eyebrow="How it works"
       title="使い始めるまで 3 ステップ"
       lead="必要なのは Google アカウントだけです。予約ページの作成から公開まで、管理画面で完結します。"
@@ -28,12 +28,9 @@ const NUMBER_WIDTH = 2;
     <ol class="steps">
       {STEPS.map((step, index) => (
         <li class="step">
-          <p class="number">
-            <span class="label">Step</span>
-            <span class="digit">{String(index + 1).padStart(NUMBER_WIDTH, '0')}</span>
-          </p>
+          <span class="marker" aria-hidden="true">{index + 1}</span>
           <h3>{step.title}</h3>
-          <p class="body">{step.body}</p>
+          <p>{step.body}</p>
         </li>
       ))}
     </ol>
@@ -42,71 +39,86 @@ const NUMBER_WIDTH = 2;
 
 <style>
   .flow {
-    padding: 128px 32px;
-    background: var(--color-bg-alt);
-    border-bottom: 1px solid var(--color-border);
+    padding: 120px 32px;
   }
   .inner {
     max-width: var(--content-width);
     margin: 0 auto;
   }
   .steps {
-    margin: 72px 0 0;
+    position: relative;
+    margin: 56px 0 0;
     padding: 0;
     list-style: none;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+  }
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 19px;
+    left: 20px;
+    right: calc(100% / 3);
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--color-free) 0 6px, transparent 6px 12px);
   }
   .step {
-    padding: 8px 36px;
+    position: relative;
   }
-  .step + .step {
-    border-left: 1px solid var(--color-border);
-  }
-  .number {
-    margin: 0;
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    font-family: var(--font-en);
-  }
-  .label {
-    font-style: italic;
-    font-size: 15px;
-    letter-spacing: 0.12em;
-    color: var(--color-accent-text);
-  }
-  .digit {
-    font-size: 46px;
-    line-height: 1;
+  .marker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-free);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 0 0 0 6px var(--color-bg);
   }
   h3 {
-    margin: 22px 0 14px;
-    font-family: var(--font-mincho);
-    font-weight: 500;
-    font-size: 19px;
-    letter-spacing: 0.08em;
+    margin: 20px 0 8px;
+    font-weight: 700;
+    font-size: 18px;
   }
-  .body {
+  p {
     margin: 0;
     font-size: 14px;
-    line-height: 2.05;
+    line-height: 1.95;
     color: var(--color-text-sub);
   }
   @media (max-width: 760px) {
     .flow {
-      padding: 96px 16px;
+      padding: 88px 16px;
     }
     .steps {
       grid-template-columns: minmax(0, 1fr);
-      margin-top: 48px;
+      gap: 28px;
+      margin-top: 40px;
+    }
+    .steps::before {
+      top: 20px;
+      bottom: 40px;
+      left: 19px;
+      right: auto;
+      width: 2px;
+      height: auto;
+      background: repeating-linear-gradient(180deg, var(--color-free) 0 6px, transparent 6px 12px);
     }
     .step {
-      padding: 32px 4px;
+      padding-left: 60px;
     }
-    .step + .step {
-      border-left: none;
-      border-top: 1px solid var(--color-border);
+    .marker {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    h3 {
+      margin-top: 6px;
     }
   }
 </style>

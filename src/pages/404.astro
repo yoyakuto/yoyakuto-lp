@@ -1,12 +1,11 @@
 ---
-import Ornament from '../components/Ornament.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="ページが見つかりません" noindex>
   <main class="not-found">
-    <p class="eyebrow">404</p>
+    <p class="code">404</p>
     <h1>ページが見つかりません</h1>
-    <Ornament />
+    <p class="lead">この時間には予定がないようです。URL をお確かめください。</p>
     <a href="/">トップへ戻る</a>
   </main>
 </BaseLayout>
@@ -18,29 +17,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 22px;
+    gap: 16px;
   }
-  .eyebrow {
+  .code {
     margin: 0;
-    font-family: var(--font-en);
-    font-size: 15px;
-    letter-spacing: 0.42em;
-    color: var(--color-accent-text);
+    padding: 2px 12px;
+    border-radius: 999px;
+    background: var(--color-free-soft);
+    color: var(--color-free);
+    font-family: var(--font-mono);
+    font-size: 14px;
   }
   h1 {
     margin: 0;
-    font-family: var(--font-mincho);
-    font-weight: 500;
-    font-size: 34px;
-    letter-spacing: 0.12em;
+    font-weight: 700;
+    font-size: 30px;
+  }
+  .lead {
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-text-sub);
   }
   a {
+    margin-top: 8px;
     font-size: 15px;
-    letter-spacing: 0.08em;
   }
   @media (max-width: 760px) {
+    .not-found {
+      padding: 96px 16px 112px;
+    }
     h1 {
-      font-size: 26px;
+      font-size: 24px;
     }
   }
 </style>

@@ -1,66 +1,109 @@
 ---
 import CtaButtons from '../CtaButtons.astro';
-import Ornament from '../Ornament.astro';
 
-const WEEKDAYS = ['月', '火', '水', '木', '金'];
-const FIRST_DAY_OF_MONTH = 12;
-const TIMES = ['10:00', '10:30', '11:00', '11:30', '13:00', '13:30'];
-// 予約ページの見本。true が予約できる枠で、false はメンバーの誰かに予定がある枠
-const SLOTS = [
-  [true, false, true, true, false],
-  [true, false, false, true, false],
-  [false, true, false, true, true],
-  [false, true, true, false, true],
-  [true, false, true, false, true],
-  [true, true, false, false, true],
+const DAY_START_HOUR = 9;
+const SLOT_MINUTES = 30;
+const SLOTS_PER_HOUR = 60 / SLOT_MINUTES;
+const SLOT_COUNT = 18;
+const AXIS_EVERY_SLOTS = 6;
+const MINUTES_PER_HOUR = 60;
+const TWO_DIGITS = 2;
+
+// 見本の予定。start と end は 9:00 から数えた 30 分枠の位置で、end の枠は含まない
+const MEMBERS = [
+  { role: '営業', color: 'var(--color-member-1)', busy: [{ start: 1, end: 4 }, { start: 8, end: 10 }, { start: 15, end: 17 }] },
+  { role: 'カスタマーサクセス', color: 'var(--color-member-2)', busy: [{ start: 0, end: 1 }, { start: 5, end: 7 }, { start: 12, end: 14 }] },
+  { role: 'エンジニア', color: 'var(--color-member-3)', busy: [{ start: 3, end: 5 }, { start: 6, end: 8 }] },
 ];
+
+const slotLabel = (slot: number) => {
+  const minutes = DAY_START_HOUR * MINUTES_PER_HOUR + slot * SLOT_MINUTES;
+  const hour = Math.floor(minutes / MINUTES_PER_HOUR);
+  const minute = String(minutes % MINUTES_PER_HOUR).padStart(TWO_DIGITS, '0');
+  return `${hour}:${minute}`;
+};
+
+const isBusy = (slot: number) =>
+  MEMBERS.some((member) => member.busy.some((range) => range.start <= slot && slot < range.end));
+const freeSlots = Array.from({ length: SLOT_COUNT }, (_, slot) => slot).filter((slot) => !isBusy(slot));
+const axis = Array.from({ length: SLOT_COUNT / AXIS_EVERY_SLOTS + 1 }, (_, index) => index * AXIS_EVERY_SLOTS);
+const gridColumn = (start: number, end: number) => `${start + 1} / ${end + 1}`;
+const freeHours = (freeSlots.length / SLOTS_PER_HOUR).toString();
 ---
 <section class="hero" aria-labelledby="hero-title">
-  <div class="copy">
-    <p class="eyebrow">Scheduling for teams</p>
-    <h1 id="hero-title">チームの空き時間を、<br />そのまま予約ページに。</h1>
-    <Ornament />
-    <p class="lead">
-      Yoyakuto は Google カレンダーと連携し、メンバー全員の予定が空いている時間だけを予約枠として公開できる日程調整サービスです。予約ページの URL を送れば、日程を決めるためのメールのやり取りは要りません。
-    </p>
-    <CtaButtons />
-  </div>
-
-  <figure class="mock">
-    <div class="mock-card" aria-hidden="true">
-      <div class="mock-head">
-        <span class="mock-title">打ち合わせのご予約</span>
-        <span class="mock-meta">30 分 ・ 日本時間</span>
-      </div>
-      <div class="mock-grid">
-        <span class="corner"></span>
-        {WEEKDAYS.map((day, index) => (
-          <span class="day">
-            <span class="day-name">{day}</span>
-            <span class="day-date">{FIRST_DAY_OF_MONTH + index}</span>
-          </span>
-        ))}
-        {TIMES.map((time, row) => (
-          <>
-            <span class="time">{time}</span>
-            {SLOTS[row].map((open) => (
-              <span class:list={['slot', open ? 'open' : 'busy']}>{open ? time : ''}</span>
-            ))}
-          </>
-        ))}
-      </div>
+  <div class="inner">
+    <div class="copy">
+      <p class="tag">Google カレンダー連携の日程調整サービス</p>
+      <h1 id="hero-title">チームの空き時間を、<br />そのまま予約ページに。</h1>
+      <p class="lead">
+        メンバー全員の Google カレンダーを重ねて、全員が空いている時間だけを予約枠として公開します。予約ページの URL を送れば、日程を決めるためのメールの往復は要りません。
+      </p>
+      <CtaButtons />
     </div>
-    <figcaption>予約ページのイメージ。メンバー全員が空いている枠だけが選べます。</figcaption>
-  </figure>
+
+    <figure class="board">
+      <div class="card" aria-hidden="true">
+        <div class="card-head">
+          <span class="card-title">商談（30 分）</span>
+          <span class="card-date">10/14 火</span>
+        </div>
+        <div class="rows">
+          {MEMBERS.map((member) => (
+            <div class="row">
+              <span class="role">
+                <span class="swatch" style={`background: ${member.color}`}></span>
+                {member.role}
+              </span>
+              <span class="track" style={`--slots: ${SLOT_COUNT}`}>
+                {member.busy.map((range) => (
+                  <span class="block" style={`grid-column: ${gridColumn(range.start, range.end)}; --block-color: ${member.color}`}></span>
+                ))}
+              </span>
+            </div>
+          ))}
+          <div class="row result">
+            <span class="role">予約できる枠</span>
+            <span class="track" style={`--slots: ${SLOT_COUNT}`}>
+              {freeSlots.map((slot) => (
+                <span class="free" style={`grid-column: ${gridColumn(slot, slot + 1)}`}></span>
+              ))}
+            </span>
+          </div>
+          <div class="row axis-row">
+            <span class="role"></span>
+            <span class="axis">
+              {axis.map((slot) => (
+                <span style={`left: ${(slot / SLOT_COUNT) * 100}%`}>{slotLabel(slot)}</span>
+              ))}
+            </span>
+          </div>
+        </div>
+        <div class="page">
+          <p class="page-label">予約ページに表示される枠</p>
+          <ul class="chips">
+            {freeSlots.map((slot) => <li>{slotLabel(slot)}</li>)}
+          </ul>
+        </div>
+      </div>
+      <figcaption>3 人の予定を重ねると、全員が空いている {freeHours} 時間だけが予約枠になります（イメージ）。</figcaption>
+    </figure>
+  </div>
 </section>
 
 <style>
   .hero {
-    max-width: 1240px;
+    background:
+      linear-gradient(var(--color-grid) 1px, transparent 1px) 0 0 / 100% 48px,
+      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px) 0 0 / 96px 100%,
+      var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .inner {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 112px 32px 120px;
+    padding: 96px 32px 104px;
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
     align-items: center;
     gap: 64px;
   }
@@ -70,115 +113,165 @@ const SLOTS = [
     align-items: flex-start;
     gap: 24px;
   }
-  .copy :global(.ornament) {
-    justify-content: flex-start;
-  }
-  .copy :global(.cta) {
-    justify-content: flex-start;
-    margin-top: 12px;
-  }
-  .eyebrow {
+  .tag {
     margin: 0;
-    font-family: var(--font-en);
-    font-size: 15px;
-    letter-spacing: 0.36em;
-    text-transform: uppercase;
-    color: var(--color-accent-text);
+    padding: 4px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    font-size: 13px;
+    color: var(--color-text-sub);
   }
   h1 {
     margin: 0;
-    font-family: var(--font-mincho);
-    font-weight: 500;
-    font-size: 44px;
-    line-height: 1.65;
-    letter-spacing: 0.1em;
+    font-weight: 700;
+    font-size: 46px;
+    line-height: 1.45;
+    letter-spacing: 0.01em;
   }
   .lead {
     margin: 0;
-    max-width: 540px;
-    font-size: 15px;
-    line-height: 2.1;
+    max-width: 520px;
+    font-size: 16px;
+    line-height: 2;
     color: var(--color-text-sub);
   }
+  .copy :global(.cta) {
+    margin-top: 8px;
+  }
 
-  .mock {
+  .board {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
   }
-  .mock-card {
-    padding: 28px;
-    background: var(--color-surface);
+  .card {
+    padding: 24px;
     border: 1px solid var(--color-border);
-    outline: 1px solid var(--color-border-inner);
-    outline-offset: -9px;
-    box-shadow: 0 24px 48px -32px rgb(26 29 43 / 0.35);
+    border-radius: 16px;
+    background: var(--color-surface);
+    box-shadow: 0 30px 60px -36px rgb(21 32 51 / 0.35);
   }
-  .mock-head {
+  .card-head {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 12px;
-    padding: 4px 4px 18px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--color-border);
   }
-  .mock-title {
-    font-family: var(--font-mincho);
-    font-weight: 500;
-    font-size: 17px;
-    letter-spacing: 0.08em;
+  .card-title {
+    font-weight: 700;
+    font-size: 16px;
   }
-  .mock-meta {
-    font-size: 12px;
+  .card-date {
+    font-family: var(--font-mono);
+    font-size: 13px;
     color: var(--color-text-sub);
   }
-  .mock-grid {
-    display: grid;
-    grid-template-columns: 52px repeat(5, minmax(0, 1fr));
-    gap: 6px;
-    padding-top: 18px;
-  }
-  .day {
+  .rows {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    line-height: 1.3;
-    padding-bottom: 6px;
+    gap: 10px;
+    padding: 18px 0 6px;
   }
-  .day-name {
+  .row {
+    display: grid;
+    grid-template-columns: 132px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+  }
+  .role {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--color-text-sub);
+    white-space: nowrap;
+  }
+  .swatch {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+  }
+  .track {
+    display: grid;
+    grid-template-columns: repeat(var(--slots), minmax(0, 1fr));
+    height: 26px;
+    border-radius: 6px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--color-bg) 0 calc(100% / var(--slots) - 1px),
+      var(--color-grid) calc(100% / var(--slots) - 1px) calc(100% / var(--slots))
+    );
+  }
+  .block {
+    grid-row: 1;
+    margin: 3px 1px;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--block-color) 22%, white);
+    border-left: 3px solid var(--block-color);
+  }
+  .result {
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--color-border);
+  }
+  .result .role {
+    font-weight: 700;
+    color: var(--color-free);
+  }
+  .free {
+    grid-row: 1;
+    margin: 3px 1px;
+    border-radius: 4px;
+    background: var(--color-free);
+  }
+  .axis {
+    position: relative;
+    height: 18px;
+    font-family: var(--font-mono);
     font-size: 11px;
     color: var(--color-text-sub);
   }
-  .day-date {
-    font-family: var(--font-en);
-    font-size: 20px;
+  .axis span {
+    position: absolute;
+    transform: translateX(-50%);
   }
-  .time {
-    font-family: var(--font-en);
-    font-size: 14px;
-    color: var(--color-text-sub);
-    align-self: center;
+  .axis span:first-child {
+    transform: none;
   }
-  .slot {
-    height: 34px;
+  .axis span:last-child {
+    transform: translateX(-100%);
+  }
+  .page {
+    margin-top: 14px;
+    padding: 16px;
+    border-radius: 10px;
+    background: var(--color-free-soft);
+  }
+  .page-label {
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-free);
+  }
+  .chips {
+    margin: 0;
+    padding: 0;
+    list-style: none;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-en);
-    font-size: 13px;
+    flex-wrap: wrap;
+    gap: 8px;
   }
-  .open {
-    border: 1px solid var(--color-accent);
-    color: var(--color-accent-text);
-    background: #fbf8f2;
-  }
-  .busy {
-    background: repeating-linear-gradient(
-      -45deg,
-      var(--color-border-inner) 0 1px,
-      transparent 1px 7px
-    );
+  .chips li {
+    padding: 6px 14px;
+    border: 1px solid var(--color-free);
+    border-radius: 6px;
+    background: var(--color-surface);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-free);
   }
   figcaption {
     font-size: 12px;
@@ -187,28 +280,31 @@ const SLOTS = [
   }
 
   @media (max-width: 960px) {
-    .hero {
+    .inner {
       grid-template-columns: minmax(0, 1fr);
-      padding: 72px 16px 88px;
-      gap: 56px;
+      padding: 64px 16px 80px;
+      gap: 48px;
     }
     h1 {
-      font-size: 32px;
+      font-size: 34px;
     }
   }
   @media (max-width: 480px) {
     h1 {
-      font-size: 26px;
+      font-size: 27px;
     }
-    .mock-card {
+    .lead {
+      font-size: 15px;
+    }
+    .card {
       padding: 18px 14px;
     }
-    .mock-grid {
-      grid-template-columns: 40px repeat(5, minmax(0, 1fr));
+    .row {
+      grid-template-columns: minmax(0, 1fr);
       gap: 4px;
     }
-    .slot {
-      font-size: 11px;
+    .axis-row .role {
+      display: none;
     }
   }
 </style>

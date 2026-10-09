@@ -1,14 +1,11 @@
 ---
-import { SIGNUP_URL, SITE_NAME, SITE_NAME_KANA } from '../consts';
+import { SIGNUP_URL, SITE_NAME } from '../consts';
 ---
 <header class="site-header">
   <div class="inner">
     <a class="brand" href="/">
-      <img src="/images/logo.svg" alt="" width="36" height="36" />
-      <span class="brand-text">
-        <span class="brand-name">{SITE_NAME}</span>
-        <span class="brand-sub">{SITE_NAME_KANA}</span>
-      </span>
+      <img src="/images/logo.svg" alt="" width="28" height="28" />
+      <span class="brand-name">{SITE_NAME}</span>
     </a>
     <nav aria-label="サイト">
       <div class="nav-links">
@@ -27,12 +24,12 @@ import { SIGNUP_URL, SITE_NAME, SITE_NAME_KANA } from '../consts';
     position: sticky;
     top: 0;
     z-index: 10;
-    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
-    backdrop-filter: blur(8px);
+    background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--color-border);
   }
   .inner {
-    max-width: 1240px;
+    max-width: 1200px;
     height: var(--header-height);
     margin: 0 auto;
     padding: 0 32px;
@@ -44,53 +41,42 @@ import { SIGNUP_URL, SITE_NAME, SITE_NAME_KANA } from '../consts';
   .brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     color: var(--color-text);
     text-decoration: none;
   }
-  .brand-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
-  }
   .brand-name {
-    font-family: var(--font-en);
-    font-size: 26px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-  }
-  .brand-sub {
-    font-size: 10px;
-    letter-spacing: 0.4em;
-    color: var(--color-text-sub);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.01em;
   }
   nav {
     display: flex;
     align-items: center;
-    gap: 36px;
+    gap: 32px;
   }
   .nav-links {
     display: flex;
-    gap: 32px;
-    font-size: 13px;
-    letter-spacing: 0.12em;
+    gap: 28px;
+    font-size: 14px;
   }
   .nav-links a {
     color: var(--color-text);
     text-decoration: none;
   }
   .nav-links a:hover {
-    color: var(--color-accent-text);
+    color: var(--color-free);
   }
   .signup {
     display: inline-flex;
     align-items: center;
     min-height: 40px;
-    padding: 0 20px;
+    padding: 0 18px;
+    border-radius: 8px;
     background: var(--color-ink);
     color: var(--color-on-ink);
-    font-size: 13px;
-    letter-spacing: 0.12em;
+    font-size: 14px;
+    font-weight: 500;
     text-decoration: none;
   }
   .signup:hover {

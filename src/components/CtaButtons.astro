@@ -17,56 +17,48 @@ const { secondaryHref = '#features', secondaryLabel = '機能を見る', tone = 
 <style>
   .cta {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
   }
   .button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 176px;
-    min-height: 52px;
-    padding: 0 28px;
-    font-size: 14px;
-    letter-spacing: 0.14em;
+    min-width: 168px;
+    min-height: 50px;
+    padding: 0 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
     text-decoration: none;
-    border: 1px solid var(--color-ink);
     transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
+      background-color 0.2s ease,
+      border-color 0.2s ease;
   }
   .primary {
-    background: var(--color-ink);
-    color: var(--color-on-ink);
+    background: var(--color-free);
+    color: #ffffff;
   }
   .primary:hover {
-    background: var(--color-ink-hover);
-    color: var(--color-on-ink);
+    background: var(--color-free-hover);
+    color: #ffffff;
   }
   .secondary {
-    background: transparent;
-    color: var(--color-text);
-  }
-  .secondary:hover {
+    border: 1px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-text);
   }
-  .ink .primary {
-    background: var(--color-on-ink);
-    color: var(--color-ink);
-    border-color: var(--color-on-ink);
-  }
-  .ink .primary:hover {
-    background: #ffffff;
-    color: var(--color-ink);
+  .secondary:hover {
+    border-color: var(--color-text-sub);
+    color: var(--color-text);
   }
   .ink .secondary {
+    border-color: var(--color-ink-line);
+    background: transparent;
     color: var(--color-on-ink);
-    border-color: var(--color-ink-sub);
   }
   .ink .secondary:hover {
-    background: #262a3b;
+    border-color: var(--color-ink-sub);
     color: var(--color-on-ink);
   }
 </style>

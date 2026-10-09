@@ -1,103 +1,126 @@
 ---
-const POINTS = [
-  '候補日をいくつも書いたメールを送らなくていい',
-  '相手は空いている枠から選ぶだけで予約が終わる',
-  'チームの誰かの予定が埋まれば、その枠は自動で選べなくなる',
+import SectionHeading from '../SectionHeading.astro';
+
+const BEFORE = [
+  '候補日を 3 つ挙げてメールを送る',
+  '相手の返事を待つ',
+  '社内のメンバーの予定を確かめ直す',
+  '埋まっていたら、候補日の出し直し',
 ];
+const AFTER = ['予約ページの URL を送る', '相手が空いている枠を選ぶ', 'Google カレンダーに予定が入る'];
 ---
-<section class="highlight" aria-labelledby="highlight-title">
+<section class="highlight">
   <div class="inner">
-    <div class="copy">
-      <p class="eyebrow">Why Yoyakuto</p>
-      <h2 id="highlight-title">日程調整の往復を、<br />URL ひとつに。</h2>
-      <p class="lead">
-        候補日を出して、返事を待って、全員の予定を確かめ直す。Yoyakuto なら、その手順を予約ページに任せられます。
-      </p>
+    <SectionHeading
+      id="why"
+      time="10:30"
+      eyebrow="Why Yoyakuto"
+      title="日程調整の往復を、URL ひとつに。"
+      lead="候補日を出して、返事を待って、全員の予定を確かめ直す。その手順を予約ページに任せられます。"
+      tone="ink"
+    />
+    <div class="compare">
+      <div class="column before">
+        <p class="column-title">これまで</p>
+        <ol>
+          {BEFORE.map((step) => <li>{step}</li>)}
+        </ol>
+      </div>
+      <div class="column after">
+        <p class="column-title">Yoyakuto なら</p>
+        <ol>
+          {AFTER.map((step) => <li>{step}</li>)}
+        </ol>
+      </div>
     </div>
-    <ul class="points">
-      {POINTS.map((point) => <li>{point}</li>)}
-    </ul>
   </div>
 </section>
 
 <style>
   .highlight {
+    padding: 112px 32px;
     background: var(--color-ink);
     color: var(--color-on-ink);
-    padding: 120px 32px;
   }
   .inner {
     max-width: var(--content-width);
     margin: 0 auto;
+  }
+  .compare {
+    margin-top: 48px;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: center;
-    gap: 72px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
   }
-  .copy {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
+  .column {
+    padding: 28px;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-ink-line);
   }
-  .eyebrow {
-    margin: 0;
-    font-family: var(--font-en);
-    font-size: 14px;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    color: var(--color-accent);
+  .after {
+    border-color: #2bb39f;
+    background: rgb(43 179 159 / 0.08);
   }
-  h2 {
-    margin: 0;
-    font-family: var(--font-mincho);
-    font-weight: 500;
-    font-size: 34px;
-    line-height: 1.7;
-    letter-spacing: 0.12em;
-  }
-  .lead {
-    margin: 0;
-    font-size: 15px;
-    line-height: 2.1;
+  .column-title {
+    margin: 0 0 18px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
     color: var(--color-ink-sub);
   }
-  .points {
+  .after .column-title {
+    color: #5fd3c0;
+  }
+  ol {
     margin: 0;
     padding: 0;
     list-style: none;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
-  .points li {
-    position: relative;
-    padding: 22px 0 22px 30px;
-    border-bottom: 1px solid rgb(246 245 241 / 0.16);
+  li {
+    counter-increment: step;
+    display: flex;
+    align-items: center;
+    gap: 14px;
     font-size: 15px;
-    line-height: 1.9;
   }
-  .points li:first-child {
-    border-top: 1px solid rgb(246 245 241 / 0.16);
+  li::before {
+    content: counter(step);
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--color-ink-line);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-ink-sub);
   }
-  .points li::before {
-    content: '';
-    position: absolute;
-    left: 4px;
-    top: 34px;
-    width: 7px;
-    height: 7px;
-    background: var(--color-accent);
-    transform: rotate(45deg);
+  .before li {
+    color: var(--color-ink-sub);
+  }
+  .after li::before {
+    border-color: #2bb39f;
+    background: #2bb39f;
+    color: var(--color-ink);
   }
   @media (max-width: 760px) {
     .highlight {
       padding: 88px 16px;
     }
-    .inner {
+    .compare {
       grid-template-columns: minmax(0, 1fr);
-      gap: 40px;
+      margin-top: 36px;
     }
-    h2 {
-      font-size: 26px;
+    .column {
+      padding: 22px 18px;
     }
-    .points li {
+    li {
       font-size: 14px;
     }
   }

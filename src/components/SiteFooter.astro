@@ -1,130 +1,109 @@
 ---
-import Ornament from './Ornament.astro';
-import {
-  CONTACT_EMAIL,
-  COPYRIGHT,
-  LEGAL_URL,
-  PRIVACY_URL,
-  SITE_NAME,
-  TERMS_URL,
-} from '../consts';
+import { CONTACT_EMAIL, COPYRIGHT, LEGAL_URL, PRIVACY_URL, SITE_NAME, SITE_NAME_KANA, TERMS_URL } from '../consts';
 ---
 <footer class="site-footer">
   <div class="inner">
-    <div class="top">
-      <div class="brand">
-        <img src="/images/logo.svg" alt="" width="44" height="44" />
-        <div class="brand-text">
-          <span class="brand-name">{SITE_NAME}</span>
-          <span class="brand-sub">チームの予約受付を、シンプルに。</span>
-        </div>
-      </div>
-      <div class="columns">
-        <nav aria-label="サービス">
-          <p class="heading">サービス</p>
-          <a href="/#features">機能</a>
-          <a href="/#flow">使い方</a>
-          <a href="/#pricing">料金</a>
-          <a href="/#faq">よくある質問</a>
-        </nav>
-        <nav aria-label="運営情報">
-          <p class="heading">運営情報</p>
-          <a href={TERMS_URL}>利用規約</a>
-          <a href={PRIVACY_URL}>プライバシーポリシー</a>
-          <a href={LEGAL_URL}>特定商取引法に基づく表記</a>
-          <a href={`mailto:${CONTACT_EMAIL}`}>お問い合わせ</a>
-        </nav>
-      </div>
+    <div class="brand">
+      <span class="brand-row">
+        <img src="/images/logo.svg" alt="" width="28" height="28" />
+        <span class="brand-name">{SITE_NAME}</span>
+        <span class="brand-kana">{SITE_NAME_KANA}</span>
+      </span>
+      <span class="brand-sub">チームの空き時間から、予約ページをつくる。</span>
     </div>
-    <div class="bottom">
-      <Ornament />
-      <p class="copyright">{COPYRIGHT}</p>
+    <div class="columns">
+      <nav aria-label="サービス">
+        <p class="heading">サービス</p>
+        <a href="/#features">機能</a>
+        <a href="/#flow">使い方</a>
+        <a href="/#pricing">料金</a>
+        <a href="/#faq">よくある質問</a>
+      </nav>
+      <nav aria-label="運営情報">
+        <p class="heading">運営情報</p>
+        <a href={TERMS_URL}>利用規約</a>
+        <a href={PRIVACY_URL}>プライバシーポリシー</a>
+        <a href={LEGAL_URL}>特定商取引法に基づく表記</a>
+        <a href={`mailto:${CONTACT_EMAIL}`}>お問い合わせ</a>
+      </nav>
     </div>
   </div>
+  <p class="copyright">{COPYRIGHT}</p>
 </footer>
 
 <style>
   .site-footer {
     border-top: 1px solid var(--color-border);
-    background: var(--color-bg);
+    background: var(--color-surface);
   }
   .inner {
-    max-width: 1240px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 72px 32px 48px;
-    display: flex;
-    flex-direction: column;
-    gap: 56px;
-  }
-  .top {
+    padding: 64px 32px 48px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
     flex-wrap: wrap;
     gap: 40px;
   }
   .brand {
     display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .brand-text {
-    display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 10px;
+  }
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
   .brand-name {
-    font-family: var(--font-en);
-    font-size: 26px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    line-height: 1.1;
+    font-weight: 700;
+    font-size: 20px;
+  }
+  .brand-kana {
+    font-size: 12px;
+    color: var(--color-text-sub);
   }
   .brand-sub {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--color-text-sub);
   }
   .columns {
     display: flex;
     flex-wrap: wrap;
-    gap: 72px;
+    gap: 64px;
   }
   nav {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     font-size: 13px;
   }
   .heading {
-    margin: 0 0 6px;
-    font-family: var(--font-mincho);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.12em;
+    margin: 0 0 4px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--color-text-sub);
   }
   nav a {
-    color: var(--color-text-sub);
+    color: var(--color-text);
     text-decoration: none;
   }
   nav a:hover {
-    color: var(--color-accent-text);
-  }
-  .bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+    color: var(--color-free);
   }
   .copyright {
     margin: 0;
-    font-family: var(--font-en);
-    font-size: 14px;
-    letter-spacing: 0.12em;
+    padding: 20px 32px;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
     color: var(--color-text-sub);
   }
   @media (max-width: 760px) {
     .inner {
-      padding: 56px 16px 40px;
+      padding: 48px 16px 40px;
     }
     .columns {
       gap: 48px;

@@ -1,22 +1,27 @@
 :root {
-  --color-bg: #f6f5f1;
-  --color-bg-alt: #fcfbf9;
-  --color-surface: #fdfcfa;
-  --color-text: #1a1d2b;
-  --color-text-sub: #565b6b;
-  --color-accent: #b39566;
-  --color-accent-text: #806440;
-  --color-border: #e2ded4;
-  --color-border-inner: #ece8e0;
-  --color-ink: #1a1d2b;
-  --color-ink-hover: #2c3044;
-  --color-ink-sub: #c9cbd4;
-  --color-on-ink: #f6f5f1;
-  --font-sans: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif;
-  --font-mincho: 'Shippori Mincho', serif;
-  --font-en: 'Cormorant Garamond', serif;
-  --content-width: 1040px;
-  --header-height: 76px;
+  --color-bg: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-text: #152033;
+  --color-text-sub: #566176;
+  --color-border: #e1e6ee;
+  --color-grid: #eceff5;
+  --color-free: #0f7b6c;
+  --color-free-hover: #0b6457;
+  --color-free-soft: #e2f3ef;
+  --color-busy: #dfe4ec;
+  --color-ink: #152033;
+  --color-ink-hover: #24324a;
+  --color-ink-sub: #aab4c5;
+  --color-ink-line: #2c3a52;
+  --color-on-ink: #f7f8fa;
+  --color-member-1: #5b6fd0;
+  --color-member-2: #d9822b;
+  --color-member-3: #c0507f;
+  --font-sans: 'IBM Plex Sans JP', 'Hiragino Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --radius: 10px;
+  --content-width: 1080px;
+  --header-height: 68px;
 }
 
 *,
@@ -43,12 +48,16 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans);
   line-height: 1.8;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   -webkit-font-smoothing: antialiased;
 }
 
 a {
-  color: var(--color-accent-text);
+  color: var(--color-free);
+}
+
+a:hover {
+  color: var(--color-free-hover);
 }
 
 :where(h1, h2, h3, p, li, figcaption) {
@@ -57,6 +66,6 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent-text);
+  outline: 2px solid var(--color-free);
   outline-offset: 3px;
 }
