@@ -1,0 +1,125 @@
+---
+import { SIGNUP_URL } from '../../consts';
+import SectionHeading from '../SectionHeading.astro';
+
+const INCLUDED = ['Google カレンダーとの連携', 'チームでの予約受付', '予約フォームの項目設定', '予約の確認メール'];
+---
+<section class="pricing">
+  <div class="inner">
+    <SectionHeading id="pricing" time="13:00" eyebrow="Pricing" title="料金" />
+    <div class="card">
+      <div class="status">
+        <p class="status-title">料金プランは準備中です</p>
+        <p class="note">正式な料金は決まりしだい、このページでお知らせします。それまでの間も、登録して機能をお試しいただけます。</p>
+      </div>
+      <div class="detail">
+        <ul aria-label="お試しいただける機能">
+          {INCLUDED.map((item) => <li>{item}</li>)}
+        </ul>
+        <a class="button" href={SIGNUP_URL}>無料で始める</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    padding: 112px 32px;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+  .card {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    border: 1px solid var(--color-border);
+    border-top: 4px solid var(--color-free);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .status {
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .status-title {
+    margin: 0;
+    font-weight: 700;
+    font-size: 22px;
+  }
+  .note {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.95;
+    color: var(--color-text-sub);
+  }
+  .detail {
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background: var(--color-bg);
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+  }
+  li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-free)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='m4.5 8 2.5 2.5 4.5-5'/%3E%3C/svg%3E")
+      center / 12px no-repeat;
+  }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    border-radius: 8px;
+    background: var(--color-free);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .button:hover {
+    background: var(--color-free-hover);
+    color: #ffffff;
+  }
+  @media (max-width: 760px) {
+    .pricing {
+      padding: 88px 16px;
+    }
+    .card {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 36px;
+    }
+    .status,
+    .detail {
+      padding: 26px 20px;
+    }
+    .status-title {
+      font-size: 19px;
+    }
+  }
+</style>

@@ -1,0 +1,127 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+
+const BEFORE = [
+  '候補日を 3 つ挙げてメールを送る',
+  '相手の返事を待つ',
+  '社内のメンバーの予定を確かめ直す',
+  '埋まっていたら、候補日の出し直し',
+];
+const AFTER = ['予約ページの URL を送る', '相手が空いている枠を選ぶ', 'Google カレンダーに予定が入る'];
+---
+<section class="highlight">
+  <div class="inner">
+    <SectionHeading
+      id="why"
+      time="10:30"
+      eyebrow="Why Yoyakuto"
+      title="日程調整の往復を、URL ひとつに。"
+      lead="候補日を出して、返事を待って、全員の予定を確かめ直す。その手順を予約ページに任せられます。"
+      tone="ink"
+    />
+    <div class="compare">
+      <div class="column before">
+        <p class="column-title">これまで</p>
+        <ol>
+          {BEFORE.map((step) => <li>{step}</li>)}
+        </ol>
+      </div>
+      <div class="column after">
+        <p class="column-title">Yoyakuto なら</p>
+        <ol>
+          {AFTER.map((step) => <li>{step}</li>)}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .highlight {
+    padding: 112px 32px;
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+  .inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+  .compare {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .column {
+    padding: 28px;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-ink-line);
+  }
+  .after {
+    border-color: #2bb39f;
+    background: rgb(43 179 159 / 0.08);
+  }
+  .column-title {
+    margin: 0 0 18px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-sub);
+  }
+  .after .column-title {
+    color: #5fd3c0;
+  }
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  li {
+    counter-increment: step;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 15px;
+  }
+  li::before {
+    content: counter(step);
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--color-ink-line);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-ink-sub);
+  }
+  .before li {
+    color: var(--color-ink-sub);
+  }
+  .after li::before {
+    border-color: #2bb39f;
+    background: #2bb39f;
+    color: var(--color-ink);
+  }
+  @media (max-width: 760px) {
+    .highlight {
+      padding: 88px 16px;
+    }
+    .compare {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 36px;
+    }
+    .column {
+      padding: 22px 18px;
+    }
+    li {
+      font-size: 14px;
+    }
+  }
+</style>

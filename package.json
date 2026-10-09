@@ -1,0 +1,26 @@
+{
+  "name": "yoyakuto-lp",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build --force",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "astro": "^7.3.8",
+    "satori": "^0.47.1",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^24.19.1",
+    "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "fflate": "^0.8.3"
+  }
+}

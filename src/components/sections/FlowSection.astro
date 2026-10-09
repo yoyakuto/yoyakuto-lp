@@ -1,0 +1,124 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+
+const STEPS = [
+  {
+    title: 'Google アカウントで登録',
+    body: 'Google アカウントでログインし、チームを作ります。一緒に予約を受けるメンバーはメールで招待できます。',
+  },
+  {
+    title: '予約ページを作る',
+    body: '予約ページに担当するメンバーを登録し、受付時間と 1 枠の長さ、予約時に聞きたい項目を設定します。',
+  },
+  {
+    title: 'URL を共有して受け付ける',
+    body: '公開すると予約ページの URL が発行されます。メールやサイトに載せれば、相手は空き枠を選んで予約できます。',
+  },
+];
+---
+<section class="flow">
+  <div class="inner">
+    <SectionHeading
+      id="flow"
+      time="11:00"
+      eyebrow="How it works"
+      title="使い始めるまで 3 ステップ"
+      lead="必要なのは Google アカウントだけです。予約ページの作成から公開まで、管理画面で完結します。"
+    />
+    <ol class="steps">
+      {STEPS.map((step, index) => (
+        <li class="step">
+          <span class="marker" aria-hidden="true">{index + 1}</span>
+          <h3>{step.title}</h3>
+          <p>{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .flow {
+    padding: 120px 32px;
+  }
+  .inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+  .steps {
+    position: relative;
+    margin: 56px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+  }
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 19px;
+    left: 20px;
+    right: calc(100% / 3);
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--color-free) 0 6px, transparent 6px 12px);
+  }
+  .step {
+    position: relative;
+  }
+  .marker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-free);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 0 0 0 6px var(--color-bg);
+  }
+  h3 {
+    margin: 20px 0 8px;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.95;
+    color: var(--color-text-sub);
+  }
+  @media (max-width: 760px) {
+    .flow {
+      padding: 88px 16px;
+    }
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 28px;
+      margin-top: 40px;
+    }
+    .steps::before {
+      top: 20px;
+      bottom: 40px;
+      left: 19px;
+      right: auto;
+      width: 2px;
+      height: auto;
+      background: repeating-linear-gradient(180deg, var(--color-free) 0 6px, transparent 6px 12px);
+    }
+    .step {
+      padding-left: 60px;
+    }
+    .marker {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    h3 {
+      margin-top: 6px;
+    }
+  }
+</style>

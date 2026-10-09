@@ -1,0 +1,39 @@
+---
+import CtaButtons from '../CtaButtons.astro';
+import SectionHeading from '../SectionHeading.astro';
+---
+<section class="closing">
+  <div class="inner">
+    <SectionHeading
+      id="get-started"
+      time="15:00"
+      eyebrow="Get started"
+      title="次の日程調整は、URL を送るだけに。"
+      lead="Google アカウントがあれば、今日から予約ページを公開できます。"
+      tone="ink"
+    />
+    <CtaButtons tone="ink" secondaryHref="#flow" secondaryLabel="使い方を見る" />
+  </div>
+</section>
+
+<style>
+  .closing {
+    padding: 104px 32px;
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+  .inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+  @media (max-width: 760px) {
+    .closing {
+      padding: 80px 16px;
+    }
+  }
+</style>

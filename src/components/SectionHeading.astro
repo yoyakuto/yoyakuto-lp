@@ -1,0 +1,90 @@
+---
+interface Props {
+  id: string;
+  time: string;
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  tone?: 'default' | 'ink';
+}
+
+const { id, time, eyebrow, title, lead, tone = 'default' } = Astro.props;
+---
+<div class:list={['section-heading', tone]}>
+  <p class="label">
+    <span class="time">{time}</span>
+    <span class="eyebrow">{eyebrow}</span>
+  </p>
+  <h2 id={id}>{title}</h2>
+  {lead && <p class="lead">{lead}</p>}
+</div>
+
+<style>
+  .section-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 680px;
+  }
+  .label {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--color-text-sub);
+  }
+  .time {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--color-free-soft);
+    color: var(--color-free);
+    font-weight: 500;
+  }
+  .time::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+  }
+  h2 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+  .lead {
+    margin: 0;
+    font-size: 15px;
+    line-height: 2;
+    color: var(--color-text-sub);
+  }
+  .ink .label {
+    color: var(--color-ink-sub);
+  }
+  .ink .time {
+    background: rgb(43 179 159 / 0.16);
+    color: #5fd3c0;
+  }
+  .ink .lead {
+    color: var(--color-ink-sub);
+  }
+  @media (max-width: 760px) {
+    h2 {
+      font-size: 26px;
+    }
+    .lead {
+      font-size: 14px;
+    }
+  }
+</style>

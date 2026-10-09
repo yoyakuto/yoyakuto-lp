@@ -1,0 +1,10 @@
+.vscode
+.idea
+.claude
+
+node_modules
+dist
+.astro
+
+test-results
+playwright-report

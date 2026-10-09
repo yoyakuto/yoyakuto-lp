@@ -1,0 +1,64 @@
+---
+import { SIGNUP_URL } from '../consts';
+
+interface Props {
+  secondaryHref?: string;
+  secondaryLabel?: string;
+  tone?: 'default' | 'ink';
+}
+
+const { secondaryHref = '#features', secondaryLabel = '機能を見る', tone = 'default' } = Astro.props;
+---
+<div class:list={['cta', tone]}>
+  <a class="button primary" href={SIGNUP_URL}>無料で始める</a>
+  <a class="button secondary" href={secondaryHref}>{secondaryLabel}</a>
+</div>
+
+<style>
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 168px;
+    min-height: 50px;
+    padding: 0 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .primary {
+    background: var(--color-free);
+    color: #ffffff;
+  }
+  .primary:hover {
+    background: var(--color-free-hover);
+    color: #ffffff;
+  }
+  .secondary {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+  .secondary:hover {
+    border-color: var(--color-text-sub);
+    color: var(--color-text);
+  }
+  .ink .secondary {
+    border-color: var(--color-ink-line);
+    background: transparent;
+    color: var(--color-on-ink);
+  }
+  .ink .secondary:hover {
+    border-color: var(--color-ink-sub);
+    color: var(--color-on-ink);
+  }
+</style>
