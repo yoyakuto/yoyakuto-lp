@@ -2,13 +2,16 @@ import { defineConfig, devices } from '@playwright/test';
 
 const PORT = 4322;
 const BASE_URL = `http://localhost:${PORT}`;
+// CI ではブラウザ起動などの一時的な失敗で落ちないよう 1 回だけ再試行する
+const CI_RETRIES = 1;
+const LOCAL_RETRIES = 0;
 const DESKTOP_VIEWPORT = { width: 1440, height: 900 };
 
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 1 : 0,
+  retries: process.env.CI ? CI_RETRIES : LOCAL_RETRIES,
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
   use: {
     baseURL: BASE_URL,
