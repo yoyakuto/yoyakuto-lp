@@ -16,6 +16,11 @@ test.describe('検索エンジンと SNS 向けの情報', () => {
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `${SITE_ORIGIN}/`);
   });
 
+  test('OGP のサイト名はサービス名だけにする', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute('content', 'Yoyakuto');
+  });
+
   test('OGP 画像を PNG として配信する', async ({ request }) => {
     const response = await request.get('/og/index.png');
     expect(response.status()).toBe(HTTP_OK);

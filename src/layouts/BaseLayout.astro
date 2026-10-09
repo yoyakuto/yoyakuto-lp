@@ -1,7 +1,7 @@
 ---
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE } from '../consts';
 import '../styles/global.css';
 
 interface Props {
@@ -35,7 +35,7 @@ const GOOGLE_FONTS_URL =
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content={String(OG_IMAGE_WIDTH)} />
     <meta property="og:image:height" content={String(OG_IMAGE_HEIGHT)} />
-    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:locale" content="ja_JP" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
