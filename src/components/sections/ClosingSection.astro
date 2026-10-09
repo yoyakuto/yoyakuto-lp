@@ -1,0 +1,56 @@
+---
+import CtaButtons from '../CtaButtons.astro';
+import Ornament from '../Ornament.astro';
+---
+<section class="closing" aria-labelledby="closing-title">
+  <p class="eyebrow">Get started</p>
+  <h2 id="closing-title">チームの予約受付を、<br />シンプルに。</h2>
+  <Ornament />
+  <p class="lead">Google アカウントがあれば、今日から予約ページを公開できます。</p>
+  <CtaButtons tone="ink" secondaryHref="#flow" secondaryLabel="使い方を見る" />
+</section>
+
+<style>
+  .closing {
+    padding: 120px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    text-align: center;
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+  .eyebrow {
+    margin: 0;
+    font-family: var(--font-en);
+    font-size: 14px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  h2 {
+    margin: 0;
+    font-family: var(--font-mincho);
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 1.7;
+    letter-spacing: 0.12em;
+  }
+  .lead {
+    margin: 0 0 14px;
+    font-size: 15px;
+    color: var(--color-ink-sub);
+  }
+  @media (max-width: 760px) {
+    .closing {
+      padding: 88px 16px;
+    }
+    h2 {
+      font-size: 26px;
+    }
+    .lead {
+      font-size: 14px;
+    }
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+
+const STEPS = [
+  {
+    title: 'Google アカウントで登録',
+    body: 'Google アカウントでログインし、チームを作ります。一緒に予約を受けるメンバーはメールで招待できます。',
+  },
+  {
+    title: '予約ページを作る',
+    body: '予約ページに担当するメンバーを登録し、受付時間と 1 枠の長さ、予約時に聞きたい項目を設定します。',
+  },
+  {
+    title: 'URL を共有して受け付ける',
+    body: '公開すると予約ページの URL が発行されます。メールやサイトに載せれば、相手は空き枠を選んで予約できます。',
+  },
+];
+const NUMBER_WIDTH = 2;
+---
+<section class="flow" aria-labelledby="flow">
+  <div class="inner">
+    <SectionHeading
+      id="flow"
+      eyebrow="How it works"
+      title="使い始めるまで 3 ステップ"
+      lead="必要なのは Google アカウントだけです。予約ページの作成から公開まで、管理画面で完結します。"
+    />
+    <ol class="steps">
+      {STEPS.map((step, index) => (
+        <li class="step">
+          <p class="number">
+            <span class="label">Step</span>
+            <span class="digit">{String(index + 1).padStart(NUMBER_WIDTH, '0')}</span>
+          </p>
+          <h3>{step.title}</h3>
+          <p class="body">{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .flow {
+    padding: 128px 32px;
+    background: var(--color-bg-alt);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+  .steps {
+    margin: 72px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .step {
+    padding: 8px 36px;
+  }
+  .step + .step {
+    border-left: 1px solid var(--color-border);
+  }
+  .number {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    font-family: var(--font-en);
+  }
+  .label {
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    color: var(--color-accent-text);
+  }
+  .digit {
+    font-size: 46px;
+    line-height: 1;
+  }
+  h3 {
+    margin: 22px 0 14px;
+    font-family: var(--font-mincho);
+    font-weight: 500;
+    font-size: 19px;
+    letter-spacing: 0.08em;
+  }
+  .body {
+    margin: 0;
+    font-size: 14px;
+    line-height: 2.05;
+    color: var(--color-text-sub);
+  }
+  @media (max-width: 760px) {
+    .flow {
+      padding: 96px 16px;
+    }
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 48px;
+    }
+    .step {
+      padding: 32px 4px;
+    }
+    .step + .step {
+      border-left: none;
+      border-top: 1px solid var(--color-border);
+    }
+  }
+</style>

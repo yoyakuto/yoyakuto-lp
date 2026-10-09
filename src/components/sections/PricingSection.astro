@@ -1,0 +1,125 @@
+---
+import { SIGNUP_URL } from '../../consts';
+import SectionHeading from '../SectionHeading.astro';
+
+const INCLUDED = [
+  'Google カレンダーとの連携',
+  'チームでの予約受付',
+  '予約フォームの項目設定',
+  '予約の確認メール',
+];
+---
+<section class="pricing" aria-labelledby="pricing">
+  <div class="inner">
+    <SectionHeading id="pricing" eyebrow="Pricing" title="料金" />
+    <div class="card">
+      <p class="status">料金プランは準備中です</p>
+      <p class="note">
+        正式な料金は決まりしだい、このページでお知らせします。<br />
+        それまでの間も、登録して機能をお試しいただけます。
+      </p>
+      <ul class="included" aria-label="お試しいただける機能">
+        {INCLUDED.map((item) => <li>{item}</li>)}
+      </ul>
+      <a class="button" href={SIGNUP_URL}>無料で始める</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    padding: 128px 32px;
+  }
+  .inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+  .card {
+    max-width: 560px;
+    margin: 64px auto 0;
+    padding: 56px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-ink);
+    outline: 1px solid var(--color-accent);
+    outline-offset: -9px;
+  }
+  .status {
+    margin: 0;
+    font-family: var(--font-mincho);
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: 0.1em;
+  }
+  .note {
+    margin: 0;
+    font-size: 14px;
+    line-height: 2;
+    color: var(--color-text-sub);
+  }
+  .included {
+    margin: 0;
+    padding: 24px 0 0;
+    list-style: none;
+    width: 100%;
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 20px;
+    text-align: left;
+    font-size: 14px;
+  }
+  .included li {
+    position: relative;
+    padding-left: 20px;
+  }
+  .included li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 0.75em;
+    width: 6px;
+    height: 6px;
+    background: var(--color-accent);
+    transform: rotate(45deg);
+  }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 52px;
+    margin-top: 8px;
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+    font-size: 14px;
+    letter-spacing: 0.14em;
+    text-decoration: none;
+  }
+  .button:hover {
+    background: #2c3044;
+    color: var(--color-on-ink);
+  }
+  @media (max-width: 760px) {
+    .pricing {
+      padding: 96px 16px;
+    }
+    .card {
+      margin-top: 48px;
+      padding: 44px 24px;
+    }
+    .status {
+      font-size: 20px;
+    }
+    .note br {
+      display: none;
+    }
+    .included {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
