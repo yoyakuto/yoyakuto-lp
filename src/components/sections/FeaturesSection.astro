@@ -1,0 +1,123 @@
+---
+import SectionHeading from '../SectionHeading.astro';
+
+const FEATURES = [
+  {
+    title: 'Google カレンダーから空き枠を出す',
+    body: '登録したメンバーの Google カレンダーを読み取り、予定が入っていない時間を予約枠として表示します。予定を変えれば、予約ページの空き枠にもそのまま反映されます。',
+  },
+  {
+    title: 'チームで受け付ける予約ページ',
+    body: '1 つの予約ページに複数のメンバーを登録できます。全員の予定が空いている時間だけを枠にするので、同席が必要な商談や面接の日程調整に向いています。',
+  },
+  {
+    title: '予約フォームを自由に組み立てる',
+    body: '会社名や相談内容など、予約時に聞きたい項目を追加できます。テキスト、メールアドレス、電話番号、選択肢、チェックボックスに対応し、並び順も変えられます。',
+  },
+  {
+    title: '予約はカレンダーとメールに届く',
+    body: '予約が確定すると、Google カレンダーに参加者付きの予定を作成し、予約した方には確認メールを送ります。フォームの回答も予定の説明欄に入ります。',
+  },
+  {
+    title: '受付時間と枠の長さを決める',
+    body: '受付を始める時刻と終える時刻、1 枠の長さを予約ページごとに設定できます。昼休みなど、予約を受けたくない時間帯も除外できます。',
+  },
+  {
+    title: '公開の停止と URL の再発行',
+    body: '受付を一時的に止めても、予約ページの URL は変わりません。URL を知られたくない相手に渡ってしまったときは、新しい URL に作り直せます。',
+  },
+];
+const NUMBER_WIDTH = 2;
+---
+<section class="features" aria-labelledby="features">
+  <div class="inner">
+    <SectionHeading
+      id="features"
+      eyebrow="Features"
+      title="主な機能"
+      lead="予約ページの公開から、予約の受付、カレンダーへの登録まで。日程調整に必要なことを一つにまとめています。"
+    />
+    <ul class="cards">
+      {FEATURES.map((feature, index) => (
+        <li class="card">
+          <p class="number">
+            No. {String(index + 1).padStart(NUMBER_WIDTH, '0')}
+            <span class="rule" aria-hidden="true"></span>
+          </p>
+          <h3>{feature.title}</h3>
+          <p class="body">{feature.body}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .features {
+    padding: 128px 32px;
+  }
+  .inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+  .cards {
+    margin: 72px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .card {
+    padding: 44px 40px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    outline: 1px solid var(--color-border-inner);
+    outline-offset: -9px;
+  }
+  .number {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-en);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--color-accent-text);
+  }
+  .rule {
+    width: 28px;
+    height: 1px;
+    background: var(--color-accent);
+  }
+  h3 {
+    margin: 18px 0 14px;
+    font-family: var(--font-mincho);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.6;
+    letter-spacing: 0.08em;
+  }
+  .body {
+    margin: 0;
+    font-size: 14px;
+    line-height: 2.05;
+    color: var(--color-text-sub);
+  }
+  @media (max-width: 760px) {
+    .features {
+      padding: 96px 16px;
+    }
+    .cards {
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 56px;
+      gap: 16px;
+    }
+    .card {
+      padding: 36px 26px;
+    }
+    h3 {
+      font-size: 18px;
+    }
+  }
+</style>
