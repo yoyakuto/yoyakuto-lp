@@ -22,4 +22,6 @@ npx playwright install chromium   # 初回のみ
 npm run test:e2e
 ```
 
-ページ全体のスクリーンショットは `test-results/screenshots/` に保存される。CI では成果物としてダウンロードできる。
+ページ全体のスクリーンショットは `test-results/screenshots/` に保存される。
+
+CI ではビルドが通るかだけを確かめ、E2E テストは動かさない。見た目や導線を変えたときは、手元で E2E テストを流してから PR を出す。
