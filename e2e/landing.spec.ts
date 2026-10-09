@@ -1,10 +1,17 @@
-import { expect, test } from '@playwright/test';
+import { expect, type Page, test } from '@playwright/test';
 
 const APP_URL = 'https://yoyakuto.com';
 const SIGNUP_URL = `${APP_URL}/login`;
 
 // 対応する最小の画面幅。iPhone SE（第 1 世代）などの 320px を想定する
 const NARROWEST_VIEWPORT = { width: 320, height: 568 };
+
+const NO_OVERFLOW = 0;
+
+// スマホのエミュレーションでは innerWidth がはみ出した内容の幅まで広がり差が出ないため、表示領域の幅と比べる
+function horizontalOverflow(page: Page) {
+  return page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+}
 
 const SECTION_HEADINGS = ['主な機能', '使い始めるまで 3 ステップ', '料金', 'よくある質問'];
 
@@ -58,14 +65,14 @@ test.describe('トップページ', () => {
   });
 
   test('ページが横にはみ出さない', async ({ page }) => {
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-    expect(overflow).toBe(0);
+    const overflow = await horizontalOverflow(page);
+    expect(overflow).toBe(NO_OVERFLOW);
   });
 
   test('最小の画面幅でもページが横にはみ出さない', async ({ page }) => {
     await page.setViewportSize(NARROWEST_VIEWPORT);
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-    expect(overflow).toBe(0);
+    const overflow = await horizontalOverflow(page);
+    expect(overflow).toBe(NO_OVERFLOW);
   });
 });
 
