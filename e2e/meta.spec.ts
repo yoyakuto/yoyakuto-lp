@@ -5,6 +5,7 @@ const OG_IMAGE_WIDTH = '1200';
 const OG_IMAGE_HEIGHT = '630';
 const HTTP_OK = 200;
 const HTTP_NOT_FOUND = 404;
+const NONE = 0;
 
 test.describe('検索エンジンと SNS 向けの情報', () => {
   test('OGP 画像の URL とサイズを head に出す', async ({ page }) => {
@@ -40,5 +41,12 @@ test.describe('存在しないページ', () => {
     expect(response?.status()).toBe(HTTP_NOT_FOUND);
     await expect(page.getByRole('heading', { level: 1, name: 'ページが見つかりません' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'トップへ戻る' })).toHaveAttribute('href', '/');
+  });
+
+  test('検索結果に載せず、正規 URL も出さない', async ({ page }) => {
+    await page.goto('/not-found-page/');
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
+    await expect(page.locator('link[rel="canonical"]')).toHaveCount(NONE);
+    await expect(page.locator('meta[property="og:url"]')).toHaveCount(NONE);
   });
 });
