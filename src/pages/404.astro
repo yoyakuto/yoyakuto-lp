@@ -1,0 +1,46 @@
+---
+import Ornament from '../components/Ornament.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="ページが見つかりません" ogImagePath="/og/index.png">
+  <main class="not-found">
+    <p class="eyebrow">404</p>
+    <h1>ページが見つかりません</h1>
+    <Ornament />
+    <a href="/">トップへ戻る</a>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding: 120px 32px 140px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+  }
+  .eyebrow {
+    margin: 0;
+    font-family: var(--font-en);
+    font-size: 15px;
+    letter-spacing: 0.42em;
+    color: var(--color-accent-text);
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--font-mincho);
+    font-weight: 500;
+    font-size: 34px;
+    letter-spacing: 0.12em;
+  }
+  a {
+    font-size: 15px;
+    letter-spacing: 0.08em;
+  }
+  @media (max-width: 760px) {
+    h1 {
+      font-size: 26px;
+    }
+  }
+</style>

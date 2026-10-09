@@ -1,0 +1,141 @@
+---
+import Ornament from './Ornament.astro';
+import {
+  COMPANY_NAME,
+  CONTACT_EMAIL,
+  COPYRIGHT,
+  LEGAL_URL,
+  PRIVACY_URL,
+  SITE_NAME,
+  TERMS_URL,
+} from '../consts';
+---
+<footer class="site-footer">
+  <div class="inner">
+    <div class="top">
+      <div class="brand">
+        <img src="/images/logo.svg" alt="" width="44" height="44" />
+        <div class="brand-text">
+          <span class="brand-name">{SITE_NAME}</span>
+          <span class="brand-sub">チームの予約受付を、シンプルに。</span>
+        </div>
+      </div>
+      <div class="columns">
+        <nav aria-label="サービス">
+          <p class="heading">サービス</p>
+          <a href="/#features">機能</a>
+          <a href="/#flow">使い方</a>
+          <a href="/#pricing">料金</a>
+          <a href="/#faq">よくある質問</a>
+        </nav>
+        <nav aria-label="運営情報">
+          <p class="heading">運営情報</p>
+          <a href={TERMS_URL}>利用規約</a>
+          <a href={PRIVACY_URL}>プライバシーポリシー</a>
+          <a href={LEGAL_URL}>特定商取引法に基づく表記</a>
+          <a href={`mailto:${CONTACT_EMAIL}`}>お問い合わせ</a>
+        </nav>
+      </div>
+    </div>
+    <div class="bottom">
+      <Ornament />
+      <p class="company">運営 {COMPANY_NAME}</p>
+      <p class="copyright">{COPYRIGHT}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+  .inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 72px 32px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .brand-name {
+    font-family: var(--font-en);
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    line-height: 1.1;
+  }
+  .brand-sub {
+    font-size: 12px;
+    color: var(--color-text-sub);
+  }
+  .columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 72px;
+  }
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 13px;
+  }
+  .heading {
+    margin: 0 0 6px;
+    font-family: var(--font-mincho);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+  }
+  nav a {
+    color: var(--color-text-sub);
+    text-decoration: none;
+  }
+  nav a:hover {
+    color: var(--color-accent-text);
+  }
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .bottom p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--color-text-sub);
+  }
+  .company {
+    margin-top: 8px !important;
+  }
+  .copyright {
+    font-family: var(--font-en);
+    font-size: 14px !important;
+    letter-spacing: 0.12em;
+  }
+  @media (max-width: 760px) {
+    .inner {
+      padding: 56px 16px 40px;
+    }
+    .columns {
+      gap: 48px;
+    }
+  }
+</style>

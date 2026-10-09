@@ -1,0 +1,108 @@
+---
+import { SIGNUP_URL, SITE_NAME, SITE_NAME_KANA } from '../consts';
+---
+<header class="site-header">
+  <div class="inner">
+    <a class="brand" href="/">
+      <img src="/images/logo.svg" alt="" width="36" height="36" />
+      <span class="brand-text">
+        <span class="brand-name">{SITE_NAME}</span>
+        <span class="brand-sub">{SITE_NAME_KANA}</span>
+      </span>
+    </a>
+    <nav aria-label="サイト">
+      <div class="nav-links">
+        <a href="/#features">機能</a>
+        <a href="/#flow">使い方</a>
+        <a href="/#pricing">料金</a>
+        <a href="/#faq">よくある質問</a>
+      </div>
+      <a class="signup" href={SIGNUP_URL}>無料で始める</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .inner {
+    max-width: 1240px;
+    height: var(--header-height);
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .brand-name {
+    font-family: var(--font-en);
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+  }
+  .brand-sub {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--color-text-sub);
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+  }
+  .nav-links a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .nav-links a:hover {
+    color: var(--color-accent-text);
+  }
+  .signup {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 20px;
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+  }
+  .signup:hover {
+    background: #2c3044;
+    color: var(--color-on-ink);
+  }
+  @media (max-width: 760px) {
+    .inner {
+      padding: 0 16px;
+    }
+    .nav-links {
+      display: none;
+    }
+  }
+</style>

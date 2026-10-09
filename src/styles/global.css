@@ -1,0 +1,65 @@
+:root {
+  --color-bg: #f6f5f1;
+  --color-bg-alt: #fcfbf9;
+  --color-surface: #fdfcfa;
+  --color-text: #1a1d2b;
+  --color-text-sub: #565b6b;
+  --color-accent: #b39566;
+  --color-accent-text: #806440;
+  --color-border: #e2ded4;
+  --color-border-inner: #ece8e0;
+  --color-ink: #1a1d2b;
+  --color-ink-sub: #c9cbd4;
+  --color-on-ink: #f6f5f1;
+  --font-sans: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif;
+  --font-mincho: 'Shippori Mincho', serif;
+  --font-en: 'Cormorant Garamond', serif;
+  --content-width: 1040px;
+  --header-height: 76px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-accent-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-text);
+  outline-offset: 3px;
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
