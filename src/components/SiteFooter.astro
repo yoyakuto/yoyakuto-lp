@@ -1,7 +1,6 @@
 ---
 import Ornament from './Ornament.astro';
 import {
-  COMPANY_NAME,
   CONTACT_EMAIL,
   COPYRIGHT,
   LEGAL_URL,
@@ -39,7 +38,6 @@ import {
     </div>
     <div class="bottom">
       <Ornament />
-      <p class="company">運営 {COMPANY_NAME}</p>
       <p class="copyright">{COPYRIGHT}</p>
     </div>
   </div>
@@ -117,18 +115,12 @@ import {
     align-items: center;
     gap: 12px;
   }
-  .bottom p {
-    margin: 0;
-    font-size: 12px;
-    color: var(--color-text-sub);
-  }
-  .company {
-    margin-top: 8px !important;
-  }
   .copyright {
+    margin: 0;
     font-family: var(--font-en);
-    font-size: 14px !important;
+    font-size: 14px;
     letter-spacing: 0.12em;
+    color: var(--color-text-sub);
   }
   @media (max-width: 760px) {
     .inner {
