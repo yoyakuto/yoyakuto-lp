@@ -1,0 +1,79 @@
+---
+const STRENGTHS = [
+  { value: 'URL 1 本', note: '予約ページは URL を送るだけで共有できる' },
+  { value: '全員', note: 'メンバー全員の予定を突き合わせて空き枠を出す' },
+  { value: '自動登録', note: '入った予約は Google カレンダーに予定として入る' },
+  { value: '二重予約 0', note: '同じ枠への同時の申し込みを受け付けない' },
+];
+---
+<section class="strengths" aria-label="Yoyakuto の特長">
+  <ul>
+    {STRENGTHS.map((item) => (
+      <li>
+        <span class="value">{item.value}</span>
+        <span class="note">{item.note}</span>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .strengths {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+  }
+  ul {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 36px 24px;
+    text-align: center;
+  }
+  li + li {
+    border-left: 1px solid var(--color-border);
+  }
+  .value {
+    font-family: var(--font-mincho);
+    font-weight: 500;
+    font-size: 26px;
+    letter-spacing: 0.08em;
+  }
+  .note {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--color-text-sub);
+  }
+  @media (max-width: 760px) {
+    ul {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    li {
+      padding: 28px 12px;
+    }
+    li + li {
+      border-left: none;
+    }
+    li:nth-child(even) {
+      border-left: 1px solid var(--color-border);
+    }
+    li:nth-child(n + 3) {
+      border-top: 1px solid var(--color-border);
+    }
+    .value {
+      font-size: 21px;
+    }
+    .note {
+      font-size: 12px;
+    }
+  }
+</style>
